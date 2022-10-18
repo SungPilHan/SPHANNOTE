@@ -1,19 +1,16 @@
 ﻿
 // SPHANNOTEDlg.cpp: 구현 파일
 //
-
 #include "pch.h"
 #include "framework.h"
 #include "SPHANNOTE.h"
 #include "SPHANNOTEDlg.h"
 #include "afxdialogex.h"
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
-
 class CAboutDlg : public CDialogEx
 {
 public:
@@ -31,45 +28,48 @@ public:
 protected:
 	DECLARE_MESSAGE_MAP()
 };
-
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
 {
 }
-
 void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 }
-
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
+
 // CSPHANNOTEDlg 대화 상자
-
-
-
 CSPHANNOTEDlg::CSPHANNOTEDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_SPHANNOTE_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
-
 void CSPHANNOTEDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 }
-
 BEGIN_MESSAGE_MAP(CSPHANNOTEDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_GETMINMAXINFO()
+	ON_COMMAND(ID_HELP_INFO, &CSPHANNOTEDlg::OnHelpInfo)
+	ON_COMMAND(ID_EDIT_UNDO, &CSPHANNOTEDlg::OnEditUndo)
+	ON_COMMAND(ID_EDIT_CUT, &CSPHANNOTEDlg::OnEditCut)
+	ON_COMMAND(ID_EDIT_COPY, &CSPHANNOTEDlg::OnEditCopy)
+	ON_COMMAND(ID_EDIT_PASTE, &CSPHANNOTEDlg::OnEditPaste)
+	ON_COMMAND(ID_EDIT_SELECT_ALL, &CSPHANNOTEDlg::OnEditSelectAll)
+	ON_COMMAND(ID_EDIT_CLEAR, &CSPHANNOTEDlg::OnEditClear)
+	ON_COMMAND(ID_FILE_NEW, &CSPHANNOTEDlg::OnFileNew)
+	ON_COMMAND(ID_FILE_OPEN, &CSPHANNOTEDlg::OnFileOpen)
+	ON_COMMAND(ID_FILE_SAVE, &CSPHANNOTEDlg::OnFileSave)
+	ON_COMMAND(ID_FILE_SAVE_AS, &CSPHANNOTEDlg::OnFileSaveAs)
+	ON_COMMAND(ID_FILE_CLOSE, &CSPHANNOTEDlg::OnFileClose)
 END_MESSAGE_MAP()
 
-
 // CSPHANNOTEDlg 메시지 처리기
-
 BOOL CSPHANNOTEDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
@@ -103,7 +103,6 @@ BOOL CSPHANNOTEDlg::OnInitDialog()
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
-
 void CSPHANNOTEDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
 	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
@@ -120,7 +119,6 @@ void CSPHANNOTEDlg::OnSysCommand(UINT nID, LPARAM lParam)
 // 대화 상자에 최소화 단추를 추가할 경우 아이콘을 그리려면
 //  아래 코드가 필요합니다.  문서/뷰 모델을 사용하는 MFC 애플리케이션의 경우에는
 //  프레임워크에서 이 작업을 자동으로 수행합니다.
-
 void CSPHANNOTEDlg::OnPaint()
 {
 	if (IsIconic())
@@ -153,10 +151,91 @@ HCURSOR CSPHANNOTEDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+//창 최소 크기 설정
 void CSPHANNOTEDlg::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	lpMMI->ptMinTrackSize.x = 480;
 	lpMMI->ptMinTrackSize.y = 320;
 	CDialogEx::OnGetMinMaxInfo(lpMMI);
+}
+
+//도움말 메뉴
+void CSPHANNOTEDlg::OnHelpInfo()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CDialog aboutDlg(IDD_ABOUTBOX);
+	INT_PTR nRet = -1;
+
+	nRet = aboutDlg.DoModal();
+}
+//편집 메뉴
+void CSPHANNOTEDlg::OnEditUndo()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::SendMessage(GetDlgItem(IDC_EDIT_MAIN)->m_hWnd, WM_UNDO, 0, 0);
+}
+void CSPHANNOTEDlg::OnEditCut()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::SendMessage(GetDlgItem(IDC_EDIT_MAIN)->m_hWnd, WM_CUT, 0, 0);
+}
+void CSPHANNOTEDlg::OnEditCopy()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::SendMessage(GetDlgItem(IDC_EDIT_MAIN)->m_hWnd, WM_COPY, 0, 0);
+}
+void CSPHANNOTEDlg::OnEditPaste()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::SendMessage(GetDlgItem(IDC_EDIT_MAIN)->m_hWnd, WM_PASTE, 0, 0);
+}
+void CSPHANNOTEDlg::OnEditClear()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::SendMessage(GetDlgItem(IDC_EDIT_MAIN)->m_hWnd, WM_CLEAR, 0, 0);
+}
+void CSPHANNOTEDlg::OnEditSelectAll()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::SendMessage(GetDlgItem(IDC_EDIT_MAIN)->m_hWnd, EM_SETSEL, 0, -1);
+}
+//파일 메뉴
+void CSPHANNOTEDlg::OnFileNew()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+}
+void CSPHANNOTEDlg::OnFileOpen()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	GetDlgItem(IDC_EDIT_MAIN)->SetWindowTextW(CSPHANNOTEDlg::OpenFile());
+}
+void CSPHANNOTEDlg::OnFileSave()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+}
+void CSPHANNOTEDlg::OnFileSaveAs()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+}
+void CSPHANNOTEDlg::OnFileClose()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+}
+
+CString CSPHANNOTEDlg::OpenFile() {
+	CString strPath, str, getFileString = NULL;
+	CStdioFile rFile;
+	CFileException ex;
+	CFileDialog dlg(TRUE, _T("*.txt"), NULL, OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT
+		, _T("TXT Files(*.txt) | *.txt|"), NULL);
+	if (dlg.DoModal() == IDOK) {
+		strPath = dlg.GetPathName();
+		rFile.Open(strPath, CFile::modeReadWrite | CFile::typeText, &ex);
+		while (rFile.ReadString(str)) {
+			getFileString += (str + _T("\r\n"));
+		}
+		rFile.Close();
+	}
+	return getFileString;
 }
