@@ -228,7 +228,7 @@ CString CSPHANNOTEDlg::OpenFile() {
 	CStdioFile rFile;
 	CFileException ex;
 	CFileDialog dlg(TRUE, _T("*.txt"), NULL, OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT
-		, _T("TXT Files(*.txt) | *.txt|"), NULL);
+		, _T("TXT Files(*.txt) |*.txt| ALL Files(*.*) |*.*|"), NULL);
 	if (dlg.DoModal() == IDOK) {
 		strPath = dlg.GetPathName();
 		rFile.Open(strPath, CFile::modeReadWrite | CFile::typeText, &ex);

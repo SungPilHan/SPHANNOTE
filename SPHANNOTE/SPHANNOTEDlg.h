@@ -47,4 +47,5 @@ public:
 	afx_msg void OnFileClose();
 
 	CString OpenFile();
+	void SaveFile(int mod);
 };
