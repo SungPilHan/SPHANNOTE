@@ -46,6 +46,8 @@ public:
 	afx_msg void OnFileSaveAs();
 	afx_msg void OnFileClose();
 
-	CString OpenFile();
-	void SaveFile(int mod);
+	CString strPath = NULL;
+	BOOL mod = FALSE;
+	void OpenFile();
+	void SaveFile(BOOL* mod);
 };

@@ -208,34 +208,65 @@ void CSPHANNOTEDlg::OnFileNew()
 void CSPHANNOTEDlg::OnFileOpen()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	GetDlgItem(IDC_EDIT_MAIN)->SetWindowTextW(CSPHANNOTEDlg::OpenFile());
+	CSPHANNOTEDlg::OpenFile();
 }
 void CSPHANNOTEDlg::OnFileSave()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CSPHANNOTEDlg::SaveFile(&mod);
 }
 void CSPHANNOTEDlg::OnFileSaveAs()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CSPHANNOTEDlg::SaveFile(FALSE);
 }
 void CSPHANNOTEDlg::OnFileClose()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 }
 
-CString CSPHANNOTEDlg::OpenFile() {
-	CString strPath, str, getFileString = NULL;
+void CSPHANNOTEDlg::OpenFile() {
+	CString str, getFileString = NULL;
 	CStdioFile rFile;
 	CFileException ex;
 	CFileDialog dlg(TRUE, _T("*.txt"), NULL, OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT
 		, _T("TXT Files(*.txt) |*.txt| ALL Files(*.*) |*.*|"), NULL);
 	if (dlg.DoModal() == IDOK) {
 		strPath = dlg.GetPathName();
-		rFile.Open(strPath, CFile::modeReadWrite | CFile::typeText, &ex);
+		rFile.Open(strPath, CFile::modeRead | CFile::typeText, &ex);
 		while (rFile.ReadString(str)) {
 			getFileString += (str + _T("\r\n"));
 		}
 		rFile.Close();
+		mod = TRUE;
 	}
-	return getFileString;
+	GetDlgItem(IDC_EDIT_MAIN)->SetWindowTextW(getFileString);
+}
+void CSPHANNOTEDlg::SaveFile(BOOL* mod) {
+	CString str = NULL;
+	CStdioFile wFile;
+	CFileException ex;
+	CFileDialog dlg(FALSE, _T("*.txt"), NULL, OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT
+		, _T("TXT Files(*.txt) |*.txt| ALL Files(*.*) |*.*|"), NULL);
+	if (*mod) {
+		wFile.Open(strPath, CFile::modeCreate | CFile::modeWrite, &ex);
+		GetDlgItemText(IDC_EDIT_MAIN, str);
+		str.Replace(_T("\r\n"), _T("\n"));
+		wFile.WriteString(str);
+		wFile.Close();
+	}
+	else {
+		if (dlg.DoModal() == IDOK) {
+			strPath = dlg.GetPathName();
+			if (strPath.Right(4) != ".txt") {
+				strPath += ".txt";
+			}
+			wFile.Open(strPath, CFile::modeCreate | CFile::modeWrite, &ex);
+			GetDlgItemText(IDC_EDIT_MAIN, str);
+			str.Replace(_T("\r\n"), _T("\n"));
+			wFile.WriteString(str);
+			wFile.Close();
+			*mod = TRUE;
+		}
+	}
 }
