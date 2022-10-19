@@ -49,6 +49,7 @@ CSPHANNOTEDlg::CSPHANNOTEDlg(CWnd* pParent /*=nullptr*/)
 void CSPHANNOTEDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_EDIT_MAIN, Edit_main);
 }
 BEGIN_MESSAGE_MAP(CSPHANNOTEDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
@@ -67,6 +68,7 @@ BEGIN_MESSAGE_MAP(CSPHANNOTEDlg, CDialogEx)
 	ON_COMMAND(ID_FILE_SAVE, &CSPHANNOTEDlg::OnFileSave)
 	ON_COMMAND(ID_FILE_SAVE_AS, &CSPHANNOTEDlg::OnFileSaveAs)
 	ON_COMMAND(ID_FILE_CLOSE, &CSPHANNOTEDlg::OnFileClose)
+	ON_COMMAND(ID_ACCELERATOR_SAVE, &CSPHANNOTEDlg::OnAcceleratorSave)
 END_MESSAGE_MAP()
 
 // CSPHANNOTEDlg 메시지 처리기
@@ -100,6 +102,7 @@ BOOL CSPHANNOTEDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
+	hAccel = ::LoadAccelerators(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_ACCELERATOR1));
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -109,6 +112,10 @@ void CSPHANNOTEDlg::OnSysCommand(UINT nID, LPARAM lParam)
 	{
 		CAboutDlg dlgAbout;
 		dlgAbout.DoModal();
+	}
+	//X버튼(창닫기) 눌렀을 때 처리
+	else if (nID == SC_CLOSE) {
+		CSPHANNOTEDlg::OnFileClose();
 	}
 	else
 	{
@@ -173,32 +180,32 @@ void CSPHANNOTEDlg::OnHelpInfo()
 void CSPHANNOTEDlg::OnEditUndo()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	::SendMessage(GetDlgItem(IDC_EDIT_MAIN)->m_hWnd, WM_UNDO, 0, 0);
+	::SendMessage(Edit_main.m_hWnd, WM_UNDO, 0, 0);
 }
 void CSPHANNOTEDlg::OnEditCut()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	::SendMessage(GetDlgItem(IDC_EDIT_MAIN)->m_hWnd, WM_CUT, 0, 0);
+	::SendMessage(Edit_main.m_hWnd, WM_CUT, 0, 0);
 }
 void CSPHANNOTEDlg::OnEditCopy()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	::SendMessage(GetDlgItem(IDC_EDIT_MAIN)->m_hWnd, WM_COPY, 0, 0);
+	::SendMessage(Edit_main.m_hWnd, WM_COPY, 0, 0);
 }
 void CSPHANNOTEDlg::OnEditPaste()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	::SendMessage(GetDlgItem(IDC_EDIT_MAIN)->m_hWnd, WM_PASTE, 0, 0);
+	::SendMessage(Edit_main.m_hWnd, WM_PASTE, 0, 0);
 }
 void CSPHANNOTEDlg::OnEditClear()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	::SendMessage(GetDlgItem(IDC_EDIT_MAIN)->m_hWnd, WM_CLEAR, 0, 0);
+	::SendMessage(Edit_main.m_hWnd, WM_CLEAR, 0, 0);
 }
 void CSPHANNOTEDlg::OnEditSelectAll()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	::SendMessage(GetDlgItem(IDC_EDIT_MAIN)->m_hWnd, EM_SETSEL, 0, -1);
+	::SendMessage(Edit_main.m_hWnd, EM_SETSEL, 0, -1);
 }
 //파일 메뉴
 void CSPHANNOTEDlg::OnFileNew()
@@ -207,8 +214,21 @@ void CSPHANNOTEDlg::OnFileNew()
 }
 void CSPHANNOTEDlg::OnFileOpen()
 {
+	
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	CSPHANNOTEDlg::OpenFile();
+	if (::SendMessage(Edit_main.m_hWnd, EM_GETMODIFY, 0, 0)) {
+		if (::MessageBox(NULL, L"변경 내용을 저장하시겠습니까? ", L"Save File", MB_YESNO) == 6) {
+			CSPHANNOTEDlg::SaveFile(&mod);
+			::SendMessage(Edit_main.m_hWnd, WM_SETTEXT, 0, 0);
+			CSPHANNOTEDlg::OpenFile();
+		}
+		else {
+			CSPHANNOTEDlg::OpenFile();
+		}
+	}
+	else {
+		CSPHANNOTEDlg::OpenFile();
+	}
 }
 void CSPHANNOTEDlg::OnFileSave()
 {
@@ -218,11 +238,25 @@ void CSPHANNOTEDlg::OnFileSave()
 void CSPHANNOTEDlg::OnFileSaveAs()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	CSPHANNOTEDlg::SaveFile(FALSE);
+	BOOL FALSE_DATA = FALSE;
+	CSPHANNOTEDlg::SaveFile(&FALSE_DATA);
 }
 void CSPHANNOTEDlg::OnFileClose()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (::SendMessage(Edit_main.m_hWnd, EM_GETMODIFY, 0, 0)) {
+		if (::MessageBox(NULL, L"변경 내용을 저장하시겠습니까? ", L"Save File", MB_YESNO) == 6) {
+			CSPHANNOTEDlg::SaveFile(&mod);
+			::SendMessage(Edit_main.m_hWnd, WM_SETTEXT, 0, 0);
+			AfxGetMainWnd()->PostMessageW(WM_CLOSE);
+		}
+		else {
+			AfxGetMainWnd()->PostMessageW(WM_CLOSE);
+		}
+	}
+	else {
+		AfxGetMainWnd()->PostMessageW(WM_CLOSE);
+	}
 }
 
 void CSPHANNOTEDlg::OpenFile() {
@@ -239,8 +273,8 @@ void CSPHANNOTEDlg::OpenFile() {
 		}
 		rFile.Close();
 		mod = TRUE;
+		Edit_main.SetWindowTextW(getFileString);
 	}
-	GetDlgItem(IDC_EDIT_MAIN)->SetWindowTextW(getFileString);
 }
 void CSPHANNOTEDlg::SaveFile(BOOL* mod) {
 	CString str = NULL;
@@ -250,7 +284,7 @@ void CSPHANNOTEDlg::SaveFile(BOOL* mod) {
 		, _T("TXT Files(*.txt) |*.txt| ALL Files(*.*) |*.*|"), NULL);
 	if (*mod) {
 		wFile.Open(strPath, CFile::modeCreate | CFile::modeWrite, &ex);
-		GetDlgItemText(IDC_EDIT_MAIN, str);
+		Edit_main.GetWindowTextW(str);
 		str.Replace(_T("\r\n"), _T("\n"));
 		wFile.WriteString(str);
 		wFile.Close();
@@ -262,11 +296,27 @@ void CSPHANNOTEDlg::SaveFile(BOOL* mod) {
 				strPath += ".txt";
 			}
 			wFile.Open(strPath, CFile::modeCreate | CFile::modeWrite, &ex);
-			GetDlgItemText(IDC_EDIT_MAIN, str);
+			Edit_main.GetWindowTextW(str);
 			str.Replace(_T("\r\n"), _T("\n"));
 			wFile.WriteString(str);
 			wFile.Close();
 			*mod = TRUE;
 		}
 	}
+	::SendMessage(Edit_main.m_hWnd, EM_SETMODIFY, 0, 0);
+}
+
+//단축키
+void CSPHANNOTEDlg::OnAcceleratorSave()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CSPHANNOTEDlg::SaveFile(&mod);
+}
+BOOL CSPHANNOTEDlg::PreTranslateMessage(MSG* pMsg)
+{
+	// TODO: 여기에 구현 코드 추가.
+	if (::TranslateAccelerator(this->m_hWnd, hAccel, pMsg)) {
+		return TRUE;
+	}
+	return CDialogEx::PreTranslateMessage(pMsg);
 }

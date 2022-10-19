@@ -45,9 +45,17 @@ public:
 	afx_msg void OnFileSave();
 	afx_msg void OnFileSaveAs();
 	afx_msg void OnFileClose();
+	afx_msg void OnAcceleratorSave();
 
 	CString strPath = NULL;
 	BOOL mod = FALSE;
 	void OpenFile();
 	void SaveFile(BOOL* mod);
+
+	// 메모장 Edit Control
+	CEdit Edit_main;
+
+	//단추키
+	HACCEL hAccel;
+	BOOL PreTranslateMessage(MSG* pMsg);
 };
