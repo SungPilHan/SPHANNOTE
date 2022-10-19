@@ -3,7 +3,6 @@
 
 
 // CEQSTNOTEDlg 대화 상자
-
 class CEQSTNOTEDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(CEQSTNOTEDlg)

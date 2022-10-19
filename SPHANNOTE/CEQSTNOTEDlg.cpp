@@ -6,7 +6,6 @@
 #include "afxdialogex.h"
 #include "CEQSTNOTEDlg.h"
 
-
 // CEQSTNOTEDlg 대화 상자
 
 IMPLEMENT_DYNAMIC(CEQSTNOTEDlg, CDialogEx)
@@ -34,9 +33,6 @@ END_MESSAGE_MAP()
 
 
 // CEQSTNOTEDlg 메시지 처리기
-
-
-
 void CEQSTNOTEDlg::OnClickedEnrollButton()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.

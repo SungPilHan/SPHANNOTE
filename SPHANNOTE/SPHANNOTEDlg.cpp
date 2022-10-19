@@ -6,6 +6,7 @@
 #include "SPHANNOTE.h"
 #include "SPHANNOTEDlg.h"
 #include "afxdialogex.h"
+#include "CEQSTNOTEDlg.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -181,11 +182,10 @@ void CSPHANNOTEDlg::OnHelpInfo()
 void CSPHANNOTEDlg::OnEnrollLicense()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	CDialog enrollDlg(IDD_ENROLL_LICENSE);
+	CEQSTNOTEDlg enrollDlg;
 	INT_PTR nRet = -1;
 
 	nRet = enrollDlg.DoModal();
-
 }
 
 //편집 메뉴
