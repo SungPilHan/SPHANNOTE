@@ -6,13 +6,10 @@
 #define IDD_ABOUTBOX                    100
 #define IDS_ABOUTBOX                    101
 #define IDD_SPHANNOTE_DIALOG            102
-#define IDD_ENROLL_LICENSE              107
 #define IDR_MAINFRAME                   128
 #define IDR_MENU                        130
 #define IDR_ACCELERATOR1                131
 #define IDC_EDIT_MAIN                   1001
-#define IDC_EDIT_LICENSE                1002
-#define IDC_ENROLL_BUTTON               1004
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_32773                        32773
