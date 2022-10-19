@@ -70,6 +70,7 @@ BEGIN_MESSAGE_MAP(CSPHANNOTEDlg, CDialogEx)
 	ON_COMMAND(ID_FILE_CLOSE, &CSPHANNOTEDlg::OnFileClose)
 	ON_COMMAND(ID_ACCELERATOR_SAVE, &CSPHANNOTEDlg::OnAcceleratorSave)
 	ON_WM_SIZE()
+	ON_COMMAND(ID_ENROLL_LICENSE, &CSPHANNOTEDlg::OnEnrollLicense)
 END_MESSAGE_MAP()
 
 // CSPHANNOTEDlg 메시지 처리기
@@ -176,6 +177,15 @@ void CSPHANNOTEDlg::OnHelpInfo()
 	INT_PTR nRet = -1;
 
 	nRet = aboutDlg.DoModal();
+}
+void CSPHANNOTEDlg::OnEnrollLicense()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CDialog enrollDlg(IDD_ENROLL_LICENSE);
+	INT_PTR nRet = -1;
+
+	nRet = enrollDlg.DoModal();
+
 }
 
 //편집 메뉴
