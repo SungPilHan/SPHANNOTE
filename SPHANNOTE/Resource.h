@@ -6,10 +6,13 @@
 #define IDD_ABOUTBOX                    100
 #define IDS_ABOUTBOX                    101
 #define IDD_SPHANNOTE_DIALOG            102
+#define IDD_ENROLL_LICENSE              107
 #define IDR_MAINFRAME                   128
 #define IDR_MENU                        130
 #define IDR_ACCELERATOR1                131
 #define IDC_EDIT_MAIN                   1001
+#define IDC_EDIT_LICENSE                1002
+#define IDC_ENROLL_BUTTON               1004
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_32773                        32773
@@ -26,16 +29,17 @@
 #define ID_32784                        32784
 #define ID_FILE_O                       32785
 #define ID_HELP_INFO                    32786
-#define ID_ACCELERATOR32787             32787
 #define ID_ACCELERATOR_SAVE             32787
+#define ID_32790                        32790
+#define ID_ENROLL_LICENSE               32791
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        132
-#define _APS_NEXT_COMMAND_VALUE         32790
-#define _APS_NEXT_CONTROL_VALUE         1002
+#define _APS_NEXT_RESOURCE_VALUE        134
+#define _APS_NEXT_COMMAND_VALUE         32792
+#define _APS_NEXT_CONTROL_VALUE         1005
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

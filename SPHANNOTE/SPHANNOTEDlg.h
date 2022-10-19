@@ -56,6 +56,8 @@ public:
 	CEdit Edit_main;
 
 	//단추키
-	HACCEL hAccel;
+	HACCEL hAccel = NULL;
 	BOOL PreTranslateMessage(MSG* pMsg);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnEnrollLicense();
 };
