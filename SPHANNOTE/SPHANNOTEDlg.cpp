@@ -36,8 +36,8 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 }
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+	ON_WM_SIZE()
 END_MESSAGE_MAP()
-
 
 
 // CSPHANNOTEDlg 대화 상자
@@ -69,6 +69,8 @@ BEGIN_MESSAGE_MAP(CSPHANNOTEDlg, CDialogEx)
 	ON_COMMAND(ID_FILE_SAVE_AS, &CSPHANNOTEDlg::OnFileSaveAs)
 	ON_COMMAND(ID_FILE_CLOSE, &CSPHANNOTEDlg::OnFileClose)
 	ON_COMMAND(ID_ACCELERATOR_SAVE, &CSPHANNOTEDlg::OnAcceleratorSave)
+	ON_WM_SIZE()
+	ON_COMMAND(ID_ENROLL_LICENSE, &CSPHANNOTEDlg::OnEnrollLicense)
 END_MESSAGE_MAP()
 
 // CSPHANNOTEDlg 메시지 처리기
@@ -176,6 +178,14 @@ void CSPHANNOTEDlg::OnHelpInfo()
 
 	nRet = aboutDlg.DoModal();
 }
+void CSPHANNOTEDlg::OnEnrollLicense()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	CDialog enrollDlg(IDD_ENROLL_LICENSE);
+	INT_PTR nRet = -1;
+
+	nRet = enrollDlg.DoModal();
+}
 //편집 메뉴
 void CSPHANNOTEDlg::OnEditUndo()
 {
@@ -211,6 +221,18 @@ void CSPHANNOTEDlg::OnEditSelectAll()
 void CSPHANNOTEDlg::OnFileNew()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (::SendMessage(Edit_main.m_hWnd, EM_GETMODIFY, 0, 0)) {
+		if (::MessageBox(NULL, L"변경 내용을 저장하시겠습니까? ", L"Save File", MB_YESNO) == 6) {
+			CSPHANNOTEDlg::SaveFile(&mod);
+			::SendMessage(Edit_main.m_hWnd, WM_SETTEXT, 0, 0);
+		}
+		else {
+			::SendMessage(Edit_main.m_hWnd, WM_SETTEXT, 0, 0);
+		}
+	}
+	else {
+		::SendMessage(Edit_main.m_hWnd, WM_SETTEXT, 0, 0);
+	}
 }
 void CSPHANNOTEDlg::OnFileOpen()
 {
@@ -259,6 +281,7 @@ void CSPHANNOTEDlg::OnFileClose()
 	}
 }
 
+//메뉴에 사용될 파일 열기 및 저장 함수
 void CSPHANNOTEDlg::OpenFile() {
 	CString str, getFileString = NULL;
 	CStdioFile rFile;
@@ -319,4 +342,16 @@ BOOL CSPHANNOTEDlg::PreTranslateMessage(MSG* pMsg)
 		return TRUE;
 	}
 	return CDialogEx::PreTranslateMessage(pMsg);
+}
+
+
+void CSPHANNOTEDlg::OnSize(UINT nType, int cx, int cy)
+{
+	CDialogEx::OnSize(nType, cx, cy);
+
+	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	CRect rect(0, 0, cx, cy);
+	if (Edit_main.GetSafeHwnd()) {
+		Edit_main.MoveWindow(rect);
+	}
 }
