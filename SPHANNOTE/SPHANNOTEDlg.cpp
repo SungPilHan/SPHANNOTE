@@ -178,14 +178,7 @@ void CSPHANNOTEDlg::OnHelpInfo()
 
 	nRet = aboutDlg.DoModal();
 }
-void CSPHANNOTEDlg::OnEnrollLicense()
-{
-	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	CDialog enrollDlg(IDD_ENROLL_LICENSE);
-	INT_PTR nRet = -1;
 
-	nRet = enrollDlg.DoModal();
-}
 //편집 메뉴
 void CSPHANNOTEDlg::OnEditUndo()
 {
