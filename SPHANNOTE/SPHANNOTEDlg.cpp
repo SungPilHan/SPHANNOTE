@@ -22,7 +22,8 @@ public:
 	enum { IDD = IDD_ABOUTBOX };
 #endif
 
-	protected:
+	protected:	
+	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 // 구현입니다.
@@ -32,6 +33,13 @@ protected:
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
 {
 }
+
+BOOL CAboutDlg::OnInitDialog() {
+	CDialogEx::OnInitDialog();
+	MoveWindow(0, 0, 400, 240);
+	return TRUE;
+}
+
 void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
@@ -79,6 +87,12 @@ BOOL CSPHANNOTEDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
+	//라이선스 검증
+	CEQSTNOTEDlg eqstNote;
+	if (eqstNote.DoModal() != IDOK) {
+		AfxGetMainWnd()->PostMessageW(WM_CLOSE);
+	}
+
 	// 시스템 메뉴에 "정보..." 메뉴 항목을 추가합니다.
 
 	// IDM_ABOUTBOX는 시스템 명령 범위에 있어야 합니다.
@@ -106,6 +120,8 @@ BOOL CSPHANNOTEDlg::OnInitDialog()
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 	hAccel = ::LoadAccelerators(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_ACCELERATOR1));
+
+	MoveWindow(0, 0, 960, 680);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -147,6 +163,7 @@ void CSPHANNOTEDlg::OnPaint()
 
 		// 아이콘을 그립니다.
 		dc.DrawIcon(x, y, m_hIcon);
+		
 	}
 	else
 	{
@@ -186,6 +203,10 @@ void CSPHANNOTEDlg::OnEnrollLicense()
 	INT_PTR nRet = -1;
 
 	nRet = enrollDlg.DoModal();
+
+	if (nRet == IDOK) {
+		::MessageBox(NULL, L"인증되었습니다.", L"License Checked", MB_OK);
+	}
 }
 
 //편집 메뉴
