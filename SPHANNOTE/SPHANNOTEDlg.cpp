@@ -387,6 +387,21 @@ void CSPHANNOTEDlg::OnSize(UINT nType, int cx, int cy)
 void CSPHANNOTEDlg::OnDaOne()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	AES256 flagED;
+	std::string flag = flagED.AESDecrypt("E0522C44728078EA4DD99B63FA0A1F57ADB412D8C71EA62586FC4A953BE0AB6A");
+	CString cflag(flag.c_str());
+
+	CRegKey regKey;
+
+	if (regKey.Create(HKEY_CURRENT_USER, _T("Software\\EQSTWAH")) == ERROR_SUCCESS) {
+		regKey.Close();
+		if (regKey.Open(HKEY_CURRENT_USER, _T("Software\\EQSTWAH")) == ERROR_SUCCESS) {
+			regKey.SetMultiStringValue(_T("FLAG"), cflag);
+			regKey.Close();
+		}
+	}
+
+
 	::MessageBox(NULL, L"프로그램이 실행되는 것을 관찰하면서 \
 레지스트리, 네트워크, 파일 입출력을 살펴보고 플래그를 획득하세요.", L"Dynamic Analysis", MB_OK);
 }
@@ -413,6 +428,6 @@ MessageBox의 데이터가 플래그 데이터가 나오도록 만드세요.\n\
 		CString cstr(flagED.AESDecrypt("3A437E6725481032063CACCDD8770AE25A0A202E900F88A38F99017E795421702700DAA0AF3C6E1CF1BE48EEA89CA07C").c_str());
 		::MessageBox(NULL, L"분기를 우회하여 문제 3번을 클릭했을 때 나오는 \
 MessageBox의 데이터가 플래그 데이터가 나오도록 만드세요.\n\
-	EQST_FLAG(" + cstr + L")", L"Dynamic Analysis", MB_OK);
+	" + cstr, L"Dynamic Analysis", MB_OK);
 	}
 }
