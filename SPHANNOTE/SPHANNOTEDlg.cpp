@@ -7,6 +7,7 @@
 #include "SPHANNOTEDlg.h"
 #include "afxdialogex.h"
 #include "CEQSTNOTEDlg.h"
+#include "AES256.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -80,6 +81,9 @@ BEGIN_MESSAGE_MAP(CSPHANNOTEDlg, CDialogEx)
 	ON_COMMAND(ID_ACCELERATOR_SAVE, &CSPHANNOTEDlg::OnAcceleratorSave)
 	ON_WM_SIZE()
 	ON_COMMAND(ID_ENROLL_LICENSE, &CSPHANNOTEDlg::OnEnrollLicense)
+	ON_COMMAND(ID_DA_ONE, &CSPHANNOTEDlg::OnDaOne)
+	ON_COMMAND(ID_DA_TWO, &CSPHANNOTEDlg::OnDaTwo)
+	ON_COMMAND(ID_DA_THREE, &CSPHANNOTEDlg::OnDaThree)
 END_MESSAGE_MAP()
 
 // CSPHANNOTEDlg 메시지 처리기
@@ -367,7 +371,6 @@ BOOL CSPHANNOTEDlg::PreTranslateMessage(MSG* pMsg)
 	return CDialogEx::PreTranslateMessage(pMsg);
 }
 
-
 void CSPHANNOTEDlg::OnSize(UINT nType, int cx, int cy)
 {
 	CDialogEx::OnSize(nType, cx, cy);
@@ -376,5 +379,40 @@ void CSPHANNOTEDlg::OnSize(UINT nType, int cx, int cy)
 	CRect rect(0, 0, cx, cy);
 	if (Edit_main.GetSafeHwnd()) {
 		Edit_main.MoveWindow(rect);
+	}
+}
+
+
+//동적 분석 문제
+void CSPHANNOTEDlg::OnDaOne()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"프로그램이 실행되는 것을 관찰하면서 \
+레지스트리, 네트워크, 파일 입출력을 살펴보고 플래그를 획득하세요.", L"Dynamic Analysis", MB_OK);
+}
+
+
+void CSPHANNOTEDlg::OnDaTwo()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"파일 열기/저장 시 데이터를 암/복호화를 진행하는데, \
+이때 사용되는 키를 만들기 위한 SEED 문자열을 확인하세요.", L"Dynamic Analysis", MB_OK);
+}
+
+
+void CSPHANNOTEDlg::OnDaThree()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (TRUE) {
+		::MessageBox(NULL, L"분기를 우회하여 문제 3번을 클릭했을 때 나오는 \
+MessageBox의 데이터가 플래그 데이터가 나오도록 만드세요.\n\
+	EQST_FLAG(This_is_fake_flag)", L"Dynamic Analysis", MB_OK);
+	}
+	else {
+		AES256 flagED;
+		CString cstr(flagED.AESDecrypt("3A437E6725481032063CACCDD8770AE25A0A202E900F88A38F99017E795421702700DAA0AF3C6E1CF1BE48EEA89CA07C").c_str());
+		::MessageBox(NULL, L"분기를 우회하여 문제 3번을 클릭했을 때 나오는 \
+MessageBox의 데이터가 플래그 데이터가 나오도록 만드세요.\n\
+	EQST_FLAG(" + cstr + L")", L"Dynamic Analysis", MB_OK);
 	}
 }

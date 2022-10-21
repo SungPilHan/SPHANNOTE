@@ -36,13 +36,20 @@
 #define ID_32790                        32790
 #define ID_ENROLL_LICENSE               32791
 #define ID_32792                        32792
+#define ID_32793                        32793
+#define ID_32794                        32794
+#define ID_32795                        32795
+#define ID_DA_ONE                       32796
+#define ID_DA_2                         32797
+#define ID_DA_TWO                       32798
+#define ID_DA_THREE                     32799
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        139
-#define _APS_NEXT_COMMAND_VALUE         32793
+#define _APS_NEXT_COMMAND_VALUE         32800
 #define _APS_NEXT_CONTROL_VALUE         1010
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

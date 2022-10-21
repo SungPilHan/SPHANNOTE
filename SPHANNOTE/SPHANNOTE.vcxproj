@@ -183,6 +183,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AES256.h" />
     <ClInclude Include="CEQSTNOTEDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AES256.cpp" />
     <ClCompile Include="CEQSTNOTEDlg.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
