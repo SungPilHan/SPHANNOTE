@@ -403,7 +403,8 @@ void CSPHANNOTEDlg::OnDaOne()
 
 
 	::MessageBox(NULL, L"프로그램이 실행되는 것을 관찰하면서 \
-레지스트리, 네트워크, 파일 입출력을 살펴보고 플래그를 획득하세요.", L"Dynamic Analysis", MB_OK);
+레지스트리, 네트워크, 파일 입출력을 살펴보고 플래그를 획득하세요.\n\
+(FLAG는 \"EQST_FLAG(<FLAG>)\" 문자열까지 모두 적으셔야 합니다.)", L"Dynamic Analysis", MB_OK);
 }
 
 
@@ -411,7 +412,8 @@ void CSPHANNOTEDlg::OnDaTwo()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	::MessageBox(NULL, L"파일 열기/저장 시 데이터를 암/복호화를 진행하는데, \
-이때 사용되는 키를 만들기 위한 SEED 문자열을 확인하세요.", L"Dynamic Analysis", MB_OK);
+이때 사용되는 키를 만들기 위한 SEED 문자열을 확인하세요.\n\
+(FLAG는 \"EQST_FLAG(<SEED 문자열>)\"입니다.)", L"Dynamic Analysis", MB_OK);
 }
 
 
@@ -421,6 +423,7 @@ void CSPHANNOTEDlg::OnDaThree()
 	if (TRUE) {
 		::MessageBox(NULL, L"분기를 우회하여 문제 3번을 클릭했을 때 나오는 \
 MessageBox의 데이터가 플래그 데이터가 나오도록 만드세요.\n\
+(FLAG는 \"EQST_FLAG(<FLAG>)\" 문자열까지 모두 적으셔야 합니다.)\n\
 	EQST_FLAG(This_is_fake_flag)", L"Dynamic Analysis", MB_OK);
 	}
 	else {
@@ -428,6 +431,7 @@ MessageBox의 데이터가 플래그 데이터가 나오도록 만드세요.\n\
 		CString cstr(flagED.AESDecrypt("3A437E6725481032063CACCDD8770AE25A0A202E900F88A38F99017E795421702700DAA0AF3C6E1CF1BE48EEA89CA07C").c_str());
 		::MessageBox(NULL, L"분기를 우회하여 문제 3번을 클릭했을 때 나오는 \
 MessageBox의 데이터가 플래그 데이터가 나오도록 만드세요.\n\
+(FLAG는 \"EQST_FLAG(<FLAG>)\" 문자열까지 모두 적으셔야 합니다.)\n\
 	" + cstr, L"Dynamic Analysis", MB_OK);
 	}
 }
