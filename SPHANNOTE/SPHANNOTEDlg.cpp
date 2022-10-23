@@ -7,12 +7,14 @@
 #include "SPHANNOTEDlg.h"
 #include "afxdialogex.h"
 #include "CEQSTNOTEDlg.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
-typedef std::string (*AES256Encrypt)(std::string);
-typedef std::string (*AES256Decrypt)(std::string);
+typedef std::string (*AES256EncDec)(std::string);
+typedef int(*DLLFUNC43)(int, int);
+typedef int(*DLLFUNC)(int);
 
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
 class CAboutDlg : public CDialogEx
@@ -202,6 +204,23 @@ void CSPHANNOTEDlg::OnHelpInfo()
 	INT_PTR nRet = -1;
 
 	nRet = aboutDlg.DoModal();
+
+	HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	DLLFUNC EncFunc = (DLLFUNC)GetProcAddress(hInst, "SerialCheck");
+	DLLFUNC DecFunc = (DLLFUNC)GetProcAddress(hInst, "DummyDummy");
+
+	if (EncFunc == NULL || DecFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	FreeLibrary(hInst);
 }
 void CSPHANNOTEDlg::OnEnrollLicense()
 {
@@ -221,31 +240,127 @@ void CSPHANNOTEDlg::OnEditUndo()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	::SendMessage(Edit_main.m_hWnd, WM_UNDO, 0, 0);
+
+	HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	AES256EncDec DecFunc = (AES256EncDec)GetProcAddress(hInst, "AESDecrypt");
+
+	if (DecFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	FreeLibrary(hInst);
 }
 void CSPHANNOTEDlg::OnEditCut()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	::SendMessage(Edit_main.m_hWnd, WM_CUT, 0, 0);
+
+	HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	AES256EncDec EncFunc = (AES256EncDec)GetProcAddress(hInst, "AESEncrypt");
+
+	if (EncFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	FreeLibrary(hInst);
 }
 void CSPHANNOTEDlg::OnEditCopy()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	::SendMessage(Edit_main.m_hWnd, WM_COPY, 0, 0);
+
+	HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	DLLFUNC EncFunc = (DLLFUNC)GetProcAddress(hInst, "CreateSEEDchar");
+
+	if (EncFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	FreeLibrary(hInst);
 }
 void CSPHANNOTEDlg::OnEditPaste()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	::SendMessage(Edit_main.m_hWnd, WM_PASTE, 0, 0);
+
+	HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	DLLFUNC EncFunc = (DLLFUNC)GetProcAddress(hInst, "CreateSEEDint");
+
+	if (EncFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	FreeLibrary(hInst);
 }
 void CSPHANNOTEDlg::OnEditClear()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	::SendMessage(Edit_main.m_hWnd, WM_CLEAR, 0, 0);
+
+	HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	DLLFUNC EncFunc = (DLLFUNC)GetProcAddress(hInst, "GenerateInitalVector");
+
+	if (EncFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	FreeLibrary(hInst);
 }
 void CSPHANNOTEDlg::OnEditSelectAll()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	::SendMessage(Edit_main.m_hWnd, EM_SETSEL, 0, -1);
+
+	HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	DLLFUNC EncFunc = (DLLFUNC)GetProcAddress(hInst, "GenerateRandomNumber");
+
+	if (EncFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	FreeLibrary(hInst);
 }
 //파일 메뉴
 void CSPHANNOTEDlg::OnFileNew()
@@ -286,12 +401,44 @@ void CSPHANNOTEDlg::OnFileSave()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	CSPHANNOTEDlg::SaveFile(&mod);
+
+	HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	DLLFUNC EncFunc = (DLLFUNC)GetProcAddress(hInst, "GenerateKeyData");
+
+	if (EncFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	FreeLibrary(hInst);
 }
 void CSPHANNOTEDlg::OnFileSaveAs()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	BOOL FALSE_DATA = FALSE;
 	CSPHANNOTEDlg::SaveFile(&FALSE_DATA);
+
+	HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	DLLFUNC EncFunc = (DLLFUNC)GetProcAddress(hInst, "DecodeByteArray2String");
+
+	if (EncFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	FreeLibrary(hInst);
 }
 void CSPHANNOTEDlg::OnFileClose()
 {
@@ -307,6 +454,22 @@ void CSPHANNOTEDlg::OnFileClose()
 		}
 	}
 	else {
+		HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+		if (hInst == NULL) {
+			::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+			return;
+		}
+
+		DLLFUNC EncFunc = (DLLFUNC)GetProcAddress(hInst, "SetMessageData");
+		DLLFUNC DecFunc = (DLLFUNC)GetProcAddress(hInst, "GetMessageData");
+
+		if (EncFunc == NULL || DecFunc == NULL) {
+			::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+			FreeLibrary(hInst);
+			return;
+		}
+
+		FreeLibrary(hInst);
 		AfxGetMainWnd()->PostMessageW(WM_CLOSE);
 	}
 }
@@ -328,6 +491,21 @@ void CSPHANNOTEDlg::OpenFile() {
 		mod = TRUE;
 		Edit_main.SetWindowTextW(getFileString);
 	}
+	HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	DLLFUNC EncFunc = (DLLFUNC)GetProcAddress(hInst, "CheckLicense");
+
+	if (EncFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	FreeLibrary(hInst);
 }
 void CSPHANNOTEDlg::SaveFile(BOOL* mod) {
 	CString str = NULL;
@@ -357,6 +535,22 @@ void CSPHANNOTEDlg::SaveFile(BOOL* mod) {
 		}
 	}
 	::SendMessage(Edit_main.m_hWnd, EM_SETMODIFY, 0, 0);
+
+	HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	DLLFUNC EncFunc = (DLLFUNC)GetProcAddress(hInst, "DeleteAllData");
+
+	if (EncFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	FreeLibrary(hInst);
 }
 
 //단축키
@@ -383,6 +577,22 @@ void CSPHANNOTEDlg::OnSize(UINT nType, int cx, int cy)
 	if (Edit_main.GetSafeHwnd()) {
 		Edit_main.MoveWindow(rect);
 	}
+
+	HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	DLLFUNC EncFunc = (DLLFUNC)GetProcAddress(hInst, "MonitorInputData");
+
+	if (EncFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	FreeLibrary(hInst);
 }
 
 //정적 분석 문제
@@ -399,6 +609,24 @@ void CSPHANNOTEDlg::OnSaTwo()
 	::MessageBox(NULL, L"StaticAnalysis.dll에서 Export하는 함수 중에 \
 EQSTNOTE.exe 프로그램에서 호출하지 않는 함수의 이름을 찾으세요.\n(FLAG는 \
 \"EQST_FLAG(<해당 함수 명>)\"입니다.)", L"Static Analysis", MB_OK);
+
+	HINSTANCE hInst = LoadLibrary(L"StaticAnalysis.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	AES256EncDec DecFunc = (AES256EncDec)GetProcAddress(hInst, "AESDecrypt");
+	AES256EncDec EncFunc = (AES256EncDec)GetProcAddress(hInst, "AESEncrypt");
+	DLLFUNC43 Question3 = (DLLFUNC43)GetProcAddress(hInst, "StaticAnalysisQuestionThree");
+
+	if (DecFunc == NULL || EncFunc == NULL || Question3==NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	FreeLibrary(hInst);
 }
 void CSPHANNOTEDlg::OnSaThree()
 {
@@ -412,5 +640,6 @@ void CSPHANNOTEDlg::OnSaFour()
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.
 	::MessageBox(NULL, L"어떠한 프로세스에서 작업을 위해 DLL 파일을 로드할 때와 작업을 마치고 \
 DLL 파일을 해제할 때 실행되는 함수가 있다. 이 함수들이 호출되는 주소를 구하고 그 차이를 구하시오.\n\
-(FLAG는 \"EQST_FLAG(0x<주소간 차이의 절대값>)\" 형식입니다.)", L"Static Analysis", MB_OK);
+(FLAG는 \"EQST_FLAG(0x<주소간 차이의 절대값>)\" 형식입니다. 16진수에 유의하시고 영문자는 \
+대문자를 사용하세요.)", L"Static Analysis", MB_OK);
 }

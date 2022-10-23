@@ -134,3 +134,285 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+	__declspec(dllexport)int CreateSEEDchar(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+}
+#endif
+#ifdef __cplusplus
+	extern "C" {
+#endif
+	__declspec(dllexport)int CreateSEEDint(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+	}
+#endif
+#ifdef __cplusplus
+	extern "C" {
+#endif
+	__declspec(dllexport)int GenerateInitalVector(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+	}
+#endif
+#ifdef __cplusplus
+	extern "C" {
+#endif
+	__declspec(dllexport)int GenerateRandomNumber(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+	}
+#endif
+#ifdef __cplusplus
+	extern "C" {
+#endif
+	__declspec(dllexport)int GenerateKeyData(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+	}
+#endif
+#ifdef __cplusplus
+	extern "C" {
+#endif
+	__declspec(dllexport)int EncodeByteArray2String(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+	}
+#endif
+#ifdef __cplusplus
+	extern "C" {
+#endif
+	__declspec(dllexport)int DecodeByteArray2String(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+	}
+#endif
+#ifdef __cplusplus
+	extern "C" {
+#endif
+	__declspec(dllexport)int SetMessageData(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+	}
+#endif
+#ifdef __cplusplus
+	extern "C" {
+#endif
+	__declspec(dllexport)int GetMessageData(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+	}
+#endif
+#ifdef __cplusplus
+	extern "C" {
+#endif
+	__declspec(dllexport)int MonitorInputData(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+	}
+#endif
+#ifdef __cplusplus
+	extern "C" {
+#endif
+	__declspec(dllexport)int DeleteAllData(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+	}
+#endif
+#ifdef __cplusplus
+	extern "C" {
+#endif
+	__declspec(dllexport)int CheckLicense(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+	}
+#endif
+#ifdef __cplusplus
+	extern "C" {
+#endif
+	__declspec(dllexport)int SerialCheck(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+	}
+#endif
+#ifdef __cplusplus
+	extern "C" {
+#endif
+	__declspec(dllexport)int DummyDummy(int a) {
+		int val1 = 0, val2 = 0, i;
+
+		for (i = a * a; i >= 1; i--) {
+			if (i % a == 0 && i % a == 0) val1 = i;
+		}
+
+		for (i = 1; i <= a && i <= a; ++i)
+		{
+			if (a % i == 0 && a % i == 0)
+				val2 = i;
+		}
+		return 0;
+	}
+#ifdef __cplusplus
+}
+#endif
