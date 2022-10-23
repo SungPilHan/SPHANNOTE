@@ -11,6 +11,9 @@
 #define new DEBUG_NEW
 #endif
 
+typedef std::string (*AES256Encrypt)(std::string);
+typedef std::string (*AES256Decrypt)(std::string);
+
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
 class CAboutDlg : public CDialogEx
 {
@@ -80,6 +83,10 @@ BEGIN_MESSAGE_MAP(CSPHANNOTEDlg, CDialogEx)
 	ON_COMMAND(ID_ACCELERATOR_SAVE, &CSPHANNOTEDlg::OnAcceleratorSave)
 	ON_WM_SIZE()
 	ON_COMMAND(ID_ENROLL_LICENSE, &CSPHANNOTEDlg::OnEnrollLicense)
+	ON_COMMAND(ID_SA_ONE, &CSPHANNOTEDlg::OnSaOne)
+	ON_COMMAND(ID_SA_TWO, &CSPHANNOTEDlg::OnSaTwo)
+	ON_COMMAND(ID_SA_THREE, &CSPHANNOTEDlg::OnSaThree)
+	ON_COMMAND(ID_SA_FOUR, &CSPHANNOTEDlg::OnSaFour)
 END_MESSAGE_MAP()
 
 // CSPHANNOTEDlg 메시지 처리기
@@ -367,7 +374,6 @@ BOOL CSPHANNOTEDlg::PreTranslateMessage(MSG* pMsg)
 	return CDialogEx::PreTranslateMessage(pMsg);
 }
 
-
 void CSPHANNOTEDlg::OnSize(UINT nType, int cx, int cy)
 {
 	CDialogEx::OnSize(nType, cx, cy);
@@ -377,4 +383,34 @@ void CSPHANNOTEDlg::OnSize(UINT nType, int cx, int cy)
 	if (Edit_main.GetSafeHwnd()) {
 		Edit_main.MoveWindow(rect);
 	}
+}
+
+//정적 분석 문제
+void CSPHANNOTEDlg::OnSaOne()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"파일 열기/저장 시 데이터를 암/복호화를 진행하는데,\
+ 이때 사용되는 키를 만들기 위한 SEED 문자열을 확인하세요.\n\
+(FLAG는 \"EQST_FLAG(<SEED 문자열>))\"입니다.", L"Static Analysis", MB_OK);
+}
+void CSPHANNOTEDlg::OnSaTwo()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"StaticAnalysis.dll에서 Export하는 함수 중에 \
+EQSTNOTE.exe 프로그램에서 호출하지 않는 함수의 이름을 찾으세요.\n(FLAG는 \
+\"EQST_FLAG(<해당 함수 명>)\"입니다.)", L"Static Analysis", MB_OK);
+}
+void CSPHANNOTEDlg::OnSaThree()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"StaticAnalysis.dll에서 StaticAnalysisQuestionThree() 함수를\
+ 분석하고 주어진 인자를 전달했을 때의 결과를 알아보세요.\n(인자1 = 157, 인자2 = 267\
+, FLAG는 \"EQST_FLAG(<계산 결과>)\"입니다.)", L"Static Analysis", MB_OK);
+}
+void CSPHANNOTEDlg::OnSaFour()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"어떠한 프로세스에서 작업을 위해 DLL 파일을 로드할 때와 작업을 마치고 \
+DLL 파일을 해제할 때 실행되는 함수가 있다. 이 함수들이 호출되는 주소를 구하고 그 차이를 구하시오.\n\
+(FLAG는 \"EQST_FLAG(0x<주소간 차이의 절대값>)\" 형식입니다.)", L"Static Analysis", MB_OK);
 }
