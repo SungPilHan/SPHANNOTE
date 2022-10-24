@@ -11,6 +11,10 @@
 #define new DEBUG_NEW
 #endif
 
+typedef int(*DLLFUNC43)(int, int);
+typedef std::string(*AESENC)(std::string, std::string);
+typedef std::string(*AESSTR)(std::string);
+
 // 응용 프로그램 정보에 사용되는 CAboutDlg 대화 상자입니다.
 class CAboutDlg : public CDialogEx
 {
@@ -80,6 +84,11 @@ BEGIN_MESSAGE_MAP(CSPHANNOTEDlg, CDialogEx)
 	ON_COMMAND(ID_ACCELERATOR_SAVE, &CSPHANNOTEDlg::OnAcceleratorSave)
 	ON_WM_SIZE()
 	ON_COMMAND(ID_ENROLL_LICENSE, &CSPHANNOTEDlg::OnEnrollLicense)
+	ON_COMMAND(ID_HOOKING_ONE, &CSPHANNOTEDlg::OnHookingOne)
+	ON_COMMAND(ID_HOOKING_TWO, &CSPHANNOTEDlg::OnHookingTwo)
+	ON_COMMAND(ID_HOOKING_THREE, &CSPHANNOTEDlg::OnHookingThree)
+	ON_COMMAND(ID_HOOKING_FOUR, &CSPHANNOTEDlg::OnHookingFour)
+	ON_COMMAND(ID_HOOKING_FIVE, &CSPHANNOTEDlg::OnHookingFive)
 END_MESSAGE_MAP()
 
 // CSPHANNOTEDlg 메시지 처리기
@@ -377,4 +386,110 @@ void CSPHANNOTEDlg::OnSize(UINT nType, int cx, int cy)
 	if (Edit_main.GetSafeHwnd()) {
 		Edit_main.MoveWindow(rect);
 	}
+}
+
+// Hooking 문제 메뉴
+void CSPHANNOTEDlg::OnHookingOne()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"함께 첨부된 HookingQuestion.dll 파일을 EQSTNOTE.exe에 Injection하고\
+ 메뉴 > Hooking > 문제 1번을 클릭해 FLAG를 획득하세요.\n\
+(실행파일과 같은 경로에서 DLL파일을 Injection하지 마세요.)", L"Hooking", MB_OK);
+	
+	std::ifstream fin;
+	fin.open("HookingQuestion.dll");
+	if (fin.is_open()) {
+		fin.close();
+		::MessageBox(NULL, L"실행파일과 같은 경로에서 DLL파일을 Injection하지 마세요.", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	DLLFUNC43 Question = (DLLFUNC43)GetProcAddress(GetModuleHandle(L"HookingQuestion.dll"), "Question");
+	if (Question == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	HINSTANCE hInst = LoadLibrary(L"EssentialNote.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	AESENC DecFunc = (AESENC)GetProcAddress(hInst, "AESDecryptWithKey");
+	AESENC EncFunc = (AESENC)GetProcAddress(hInst, "AESEncryptWithKey");
+
+	if (DecFunc == NULL || EncFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	
+	std::string data = "8046EF1C8D6FAC08EE8395A8DF60C6F03ED15DEBDFBF669BD9473F737BCDC09E6074812690C044AA632B16C82A9CF24D";
+	data = DecFunc(data, "E19E3A81862BAD7910CB6B2083E22812610D8066AB0CDCE876BC0C0CB85947B3D1C51CECEBDD75945119FC96C1CE57ED");
+
+	FreeLibrary(hInst);
+
+	CString cstr(data.c_str());
+	::MessageBox(NULL, cstr, L"DLL TEST", MB_OK);
+}
+
+
+void CSPHANNOTEDlg::OnHookingTwo()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"암호화 API를 호출하여 데이터를 암호화하고 메시지 박스에 보여주고 있습니다.\
+해당 API를 후킹하여 평문 데이터를 탈취하고 FLAG를 획득하세요.", L"Hooking", MB_OK);
+
+	HINSTANCE hInst = LoadLibrary(L"EssentialNote.dll");
+	if (hInst == NULL) {
+		::MessageBox(NULL, L"DLL 로드 실패", L"DLL TEST", MB_OK);
+		return;
+	}
+
+	AESENC DecFunc = (AESENC)GetProcAddress(hInst, "AESDecryptWithKey");
+	AESENC EncFunc = (AESENC)GetProcAddress(hInst, "AESEncryptWithKey");
+
+	if (DecFunc == NULL || EncFunc == NULL) {
+		::MessageBox(NULL, L"함수 로드 실패", L"DLL TEST", MB_OK);
+		FreeLibrary(hInst);
+		return;
+	}
+
+	std::string data = "F302F834FC189C69643FD90C567E42D61F5955034454591C30FB08C70A08FA4E067D23F36962AC4B496AA242C5B2863B";
+	data = DecFunc(data, "E19E3A81862BAD7910CB6B2083E22812610D8066AB0CDCE876BC0C0CB85947B3D1C51CECEBDD75945119FC96C1CE57ED");
+	data = EncFunc(data, "E19E3A81862BAD7910CB6B2083E22812610D8066AB0CDCE876BC0C0CB85947B3D1C51CECEBDD75945119FC96C1CE57ED");
+	CString cstr(data.c_str());
+	::MessageBox(NULL, cstr, L"Hooking", MB_OK);
+}
+
+
+void CSPHANNOTEDlg::OnHookingThree()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"암호화 API에서 Export 된 복호화 함수를 후킹하고 다음의 암호문을 복호화하세요.\n\
+(복호화할 데이터 = \
+\"2BF5A9AC8191BC6F73565046074A1F029E6B22DA0E2B5C1F3B21FB81E2130DDEDCDBCE6BE7F752E20092C5278C6FFE4B\"\
+)", L"Hooking", MB_OK);
+}
+
+
+void CSPHANNOTEDlg::OnHookingFour()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"암호화 API 내부에서 사용되는 함수 중 전달 받은 Key Seed를 복호화하는 복호화 함수를 찾아 \
+Key Seed의 평문값을 탈취하세요.\n\
+(데이터 암복호화시에 전달되는 Key Seed 값 = \
+\"E19E3A81862BAD7910CB6B2083E22812610D8066AB0CDCE876BC0C0CB85947B3D1C51CECEBDD75945119FC96C1CE57ED\")", L"Hooking", MB_OK);
+}
+
+
+void CSPHANNOTEDlg::OnHookingFive()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"암호화 API 내부에서 사용되는 함수 중 Key Seed를 복호화하는 함수를 찾아 다음 값을 복호화하세요.\n\
+(복호화할 데이터 = \
+\"1C31EF44A5981264BD8D5FD615D60091941FA9D2BCBD0B154034EB8F2E7F7487F1C0C61361DC566DDD0B9F5217296C92\")", L"Hooking", MB_OK);
+
 }

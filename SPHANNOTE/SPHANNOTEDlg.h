@@ -60,4 +60,9 @@ public:
 	BOOL PreTranslateMessage(MSG* pMsg);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnEnrollLicense();
+	afx_msg void OnHookingOne();
+	afx_msg void OnHookingTwo();
+	afx_msg void OnHookingThree();
+	afx_msg void OnHookingFour();
+	afx_msg void OnHookingFive();
 };
