@@ -80,6 +80,11 @@ BEGIN_MESSAGE_MAP(CSPHANNOTEDlg, CDialogEx)
 	ON_COMMAND(ID_ACCELERATOR_SAVE, &CSPHANNOTEDlg::OnAcceleratorSave)
 	ON_WM_SIZE()
 	ON_COMMAND(ID_ENROLL_LICENSE, &CSPHANNOTEDlg::OnEnrollLicense)
+	/*ON_COMMAND(ID_PACK_ONE, &CSPHANNOTEDlg::OnPackOne)*/
+	
+	ON_COMMAND(ID_PACK_TWO, &CSPHANNOTEDlg::OnPackTwo)
+	ON_COMMAND(ID_PACK_THREE, &CSPHANNOTEDlg::OnPackThree)
+	ON_COMMAND(ID_PACK_FOUR, &CSPHANNOTEDlg::OnPackFour)
 END_MESSAGE_MAP()
 
 // CSPHANNOTEDlg 메시지 처리기
@@ -377,4 +382,40 @@ void CSPHANNOTEDlg::OnSize(UINT nType, int cx, int cy)
 	if (Edit_main.GetSafeHwnd()) {
 		Edit_main.MoveWindow(rect);
 	}
+}
+
+//Pack/Unpack 문제 메뉴
+//void CSPHANNOTEDlg::OnPackOne()
+//{
+//	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+//	::MessageBox(NULL, L"패킹된 파일에서 사용되는 문자열 중 FLAG를 획득하세요.", L"PackUnpack", MB_OK);
+//	std::string FLAG = "EQST_FLAG(Do_not_Afraid_Themida)";
+//	CString cstr(FLAG.c_str());
+//}
+
+
+void CSPHANNOTEDlg::OnPackTwo()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"패킹된 파일을 언패킹하고 언패킹 전/후의 프로그램 가장 처음 시작 주소의 차이를 구하세요.\n\
+(FLAG는 \"EQST_FLAG(0x<주소 차이의 절대 값>)\"입니다. 16진수에 유의하고 영문자는 대문자를 사용하세요.\n\
+1번과 실습 파일이 다릅니다. 새로 다운로드 해주세요.)", L"PackUnpack", MB_OK);
+}
+
+
+void CSPHANNOTEDlg::OnPackThree()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"프로그램 실행을 위한 언패킹 과정 중 IAT에 2번째로 설정되는 DLL에서 2번째로 로딩되는 함수의 이름을 구하세요.\n\
+(FLAG는 \"EQST_FLAG(<함수 명>)\"입니다. Export 함수의 대소문자를 주의하세요.\n\
+1번과 실습 파일이 다릅니다. 새로 다운로드 해주세요.)", L"PackUnpack", MB_OK);
+}
+
+
+void CSPHANNOTEDlg::OnPackFour()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"OEP의 주소와 OEP로 점프하는 명령어가 위치한 주소의 차이를 구하세요.\n\
+(FLAG는 \"EQST_FLAG(0x<주소 차이의 절대 값>)\"입니다. 16진수에 유의하고 영문자는 대문자를 사용하세요.\n\
+1번과 실습 파일이 다릅니다. 새로 다운로드 해주세요.)", L"PackUnpack", MB_OK);
 }
