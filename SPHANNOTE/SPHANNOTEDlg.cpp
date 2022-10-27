@@ -7,6 +7,8 @@
 #include "SPHANNOTEDlg.h"
 #include "afxdialogex.h"
 #include "CEQSTNOTEDlg.h"
+#include "AES.h"
+#include "Anti.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -80,6 +82,12 @@ BEGIN_MESSAGE_MAP(CSPHANNOTEDlg, CDialogEx)
 	ON_COMMAND(ID_ACCELERATOR_SAVE, &CSPHANNOTEDlg::OnAcceleratorSave)
 	ON_WM_SIZE()
 	ON_COMMAND(ID_ENROLL_LICENSE, &CSPHANNOTEDlg::OnEnrollLicense)
+	ON_COMMAND(ID_ANTIDEBUG_ONE, &CSPHANNOTEDlg::OnAntidebugOne)
+	ON_COMMAND(ID_ANTIDEBUG_TWO, &CSPHANNOTEDlg::OnAntidebugTwo)
+	ON_COMMAND(ID_ANTIDEBUG_THREE, &CSPHANNOTEDlg::OnAntidebugThree)
+	ON_COMMAND(ID_ANTIDEBUG_FOUR, &CSPHANNOTEDlg::OnAntidebugFour)
+	ON_COMMAND(ID_ANTIDEBUG_FIVE, &CSPHANNOTEDlg::OnAntidebugFive)
+	ON_COMMAND(ID_ANTIDEBUG_SIX, &CSPHANNOTEDlg::OnAntidebugSix)
 END_MESSAGE_MAP()
 
 // CSPHANNOTEDlg 메시지 처리기
@@ -377,4 +385,128 @@ void CSPHANNOTEDlg::OnSize(UINT nType, int cx, int cy)
 	if (Edit_main.GetSafeHwnd()) {
 		Edit_main.MoveWindow(rect);
 	}
+}
+
+//안티 디버깅 실습문제 메뉴
+void CSPHANNOTEDlg::OnAntidebugOne()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	::MessageBox(NULL, L"안티디버깅 기법을 우회하고 EQSTNOTE 프로그램을 실행시키세요.\n\
+FLAG는 디버거에서 확인할 수 있습니다.", L"AntiDebug", MB_OK);
+}
+
+
+void CSPHANNOTEDlg::OnAntidebugTwo()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	PDWORD pNtGlobalFlag = (PDWORD)(__readgsqword(0x60) + 0xBC);
+	if ((*pNtGlobalFlag) & NT_GLOBAL_FLAG_DEBUGGED) {
+		::MessageBox(NULL, L"Debugger is Catched!!\nProgram is stopped!!", L"AntiDebug", MB_OK);
+		exit(0);
+	}
+	else {
+		AES enc;
+		std::string data;
+		data = enc.AESDecrypt("AC133DBFF05EE2E7DB240ED6B6DDD6D13F6C9967E1C8162EF3893E9C6CF8C2D0");
+		CString cstr(data.c_str());
+	}
+	::MessageBox(NULL, L"안티 디버깅 기법을 우회하고 디버거에서 FLAG 데이터를 확인하세요.", L"AntiDebug", MB_OK);
+}
+
+
+void CSPHANNOTEDlg::OnAntidebugThree()
+{
+	 //TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (::FindWindow(L"OllyDbg", NULL) || ::FindWindow(L"TIdaWindow", NULL) || ::FindWindow(L"WinDbgFrameClass", NULL) || ::FindWindow(L"Qt5QWindowIcon", L"x64dbg")) {
+		::MessageBox(NULL, L"Debugger is Catched!!\nProgram is stopped!!", L"AntiDebug", MB_OK);
+		exit(0);
+	}
+	else {
+		BOOL bDebugging = FALSE;
+		TCHAR szWindow[MAX_PATH] = { 0, };
+		HWND hWnd = ::GetDesktopWindow();
+		hWnd = ::GetWindow(hWnd, GW_CHILD);
+		hWnd = ::GetWindow(hWnd, GW_HWNDFIRST);
+		while (hWnd)
+		{
+			if (::GetWindowText(hWnd, szWindow, MAX_PATH))
+			{
+				if (_tcsstr(szWindow, L"IDA") || _tcsstr(szWindow, L"OllyDbg") || _tcsstr(szWindow, L"WinDbg") || _tcsstr(szWindow, L"x64dbg"))
+				{
+					bDebugging = TRUE;
+					break;
+				}
+			}
+
+			hWnd = ::GetWindow(hWnd, GW_HWNDNEXT);
+		}
+		if (bDebugging) {
+			::MessageBox(NULL, L"Debugger is Catched!!\nProgram is stopped!!", L"AntiDebug", MB_OK);
+			exit(0);
+		}
+		else {
+			AES enc;
+			std::string data;
+			data = enc.AESDecrypt("D5D275CEBFBED6D8134B98166527DFC53A196B1D52923AFF1674F8994C7A5494");
+			CString cstr(data.c_str());
+		}
+	}
+
+	::MessageBox(NULL, L"안티 디버깅 기법을 우회하고 디버거에서 FLAG 데이터를 확인하세요.", L"AntiDebug", MB_OK);
+}
+
+
+void CSPHANNOTEDlg::OnAntidebugFour()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (Detect_Patch()) {
+		::MessageBox(NULL, L"Debugger is Catched!!\nProgram is stopped!!", L"AntiDebug", MB_OK);
+		exit(0);
+	}
+	else {
+		AES enc;
+		std::string data;
+		data = enc.AESDecrypt("C30FD41EF3EC1B63F7E57954E6489A04A615B9D85950D7C250E8D9FB1934A1B7ADCBD30A2B81584418962268EF37220F");
+		CString cstr(data.c_str());
+	}
+
+	::MessageBox(NULL, L"안티 디버깅 기법을 우회하고 디버거에서 FLAG 데이터를 확인하세요.", L"AntiDebug", MB_OK);
+}
+
+
+void CSPHANNOTEDlg::OnAntidebugFive()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (Detect_SEH()) {
+		::MessageBox(NULL, L"Debugger is Catched!!\nProgram is stopped!!", L"AntiDebug", MB_OK);
+		exit(0);
+	}
+	else {
+		AES enc;
+		std::string data;
+		data = enc.AESDecrypt("060D8AB287556622407F5B89DFA48DC4BF95644D0C3826122838A988E5E472B38770E53E6392BC1CA38524BEC8073D36");
+		CString cstr(data.c_str());
+	}
+
+	::MessageBox(NULL, L"안티 디버깅 기법을 우회하고 디버거에서 FLAG 데이터를 확인하세요.", L"AntiDebug", MB_OK);
+}
+
+
+void CSPHANNOTEDlg::OnAntidebugSix()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	int t1 = GetTickCount64();
+	Detect_SEH();
+	int t2 = GetTickCount64();
+	if ((t2 - t1) > 1) {
+		::MessageBox(NULL, L"Debugger is Catched!!\nProgram is stopped!!", L"AntiDebug", MB_OK);
+		exit(0);
+	}
+	else {
+		AES enc;
+		std::string data;
+		data = enc.AESDecrypt("71076177899A87EF8E85B68380CE50D7E44951DE623D246135EA736B9C81DED2B4D00A203409EE9C3FFB01748D2629C9");
+		CString cstr(data.c_str());
+	}
+	::MessageBox(NULL, L"안티 디버깅 기법을 우회하고 디버거에서 FLAG 데이터를 확인하세요.", L"AntiDebug", MB_OK);
 }

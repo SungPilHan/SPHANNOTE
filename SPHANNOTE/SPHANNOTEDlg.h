@@ -60,4 +60,10 @@ public:
 	BOOL PreTranslateMessage(MSG* pMsg);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnEnrollLicense();
+	afx_msg void OnAntidebugOne();
+	afx_msg void OnAntidebugTwo();
+	afx_msg void OnAntidebugThree();
+	afx_msg void OnAntidebugFour();
+	afx_msg void OnAntidebugFive();
+	afx_msg void OnAntidebugSix();
 };
