@@ -204,6 +204,7 @@
     </ClCompile>
     <ClCompile Include="SPHANNOTE.cpp" />
     <ClCompile Include="SPHANNOTEDlg.cpp" />
+    <ClCompile Include="TLS.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SPHANNOTE.rc" />
