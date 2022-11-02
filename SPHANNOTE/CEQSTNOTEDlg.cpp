@@ -24,7 +24,7 @@ BOOL CEQSTNOTEDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	MoveWindow(0, 0, 720, 480);
+	MoveWindow(0, 0, 640, 400);
 
 	//사전에 저장된 라이센스 파일이 있으면 추가
 	std::string data;
@@ -90,7 +90,7 @@ BOOL CEQSTNOTEDlg::DoEnroll() {
 	int strALen = strA.GetLength();
 	memcpy(chArray, strA.GetBuffer(), strALen);
 
-	if (0 < strALen && strALen < 249) {
+	if (strALen == 53) {
 		curl_global_init(CURL_GLOBAL_DEFAULT);
 		curl = curl_easy_init();
 
@@ -142,13 +142,20 @@ BOOL CEQSTNOTEDlg::DoEnroll() {
 					fout << ini;
 					fout.close();
 				}
+				curl_slist_free_all(slist);
+				curl_easy_cleanup(curl);
+				curl_global_cleanup();
+				return TRUE;
 			}
 		}
+		LicenseStatus.SetWindowTextW(L"서버와 통신이 불가합니다.\n인터넷을 확인해주세요!");
 		curl_slist_free_all(slist);
 		curl_easy_cleanup(curl);
 		curl_global_cleanup();
+		return FALSE;
 	}
-	return TRUE;
+	LicenseStatus.SetWindowTextW(L"라이선스 형식이 올바르지 않습니다.");
+	return FALSE;
 }
 
 size_t write_buffer_callback(char* contents, size_t size, size_t nmemb, std::string* response)
