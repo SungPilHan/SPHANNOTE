@@ -36,6 +36,9 @@
     <ClInclude Include="CEQSTNOTEDlg.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="EQSTLicense.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SPHANNOTE.cpp">
@@ -49,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="CEQSTNOTEDlg.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EQSTLicense.cpp">
+      <Filter>헤더 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
