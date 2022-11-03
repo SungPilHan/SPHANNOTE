@@ -39,6 +39,9 @@
     <ClInclude Include="AES256.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="EQSTLicense.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SPHANNOTE.cpp">
@@ -50,10 +53,13 @@
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="AES256.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="CEQSTNOTEDlg.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="AES256.cpp">
+    <ClCompile Include="EQSTLicense.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
