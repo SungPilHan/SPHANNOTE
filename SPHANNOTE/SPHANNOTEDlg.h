@@ -33,7 +33,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnGetMinMaxInfo(MINMAXINFO* lpMMI);
-	afx_msg void OnHelpInfo();
 	afx_msg void OnEditUndo();
 	afx_msg void OnEditCut();
 	afx_msg void OnEditCopy();

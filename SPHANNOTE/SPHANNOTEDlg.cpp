@@ -38,7 +38,7 @@ CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
 
 BOOL CAboutDlg::OnInitDialog() {
 	CDialogEx::OnInitDialog();
-	MoveWindow(0, 0, 400, 240);
+	MoveWindow(0, 0, 240, 155);
 	return TRUE;
 }
 
@@ -47,7 +47,6 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 }
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
-	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 
@@ -67,7 +66,6 @@ BEGIN_MESSAGE_MAP(CSPHANNOTEDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_GETMINMAXINFO()
-	ON_COMMAND(ID_HELP_INFO, &CSPHANNOTEDlg::OnHelpInfo)
 	ON_COMMAND(ID_EDIT_UNDO, &CSPHANNOTEDlg::OnEditUndo)
 	ON_COMMAND(ID_EDIT_CUT, &CSPHANNOTEDlg::OnEditCut)
 	ON_COMMAND(ID_EDIT_COPY, &CSPHANNOTEDlg::OnEditCopy)
@@ -196,14 +194,6 @@ void CSPHANNOTEDlg::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
 }
 
 //도움말 메뉴
-void CSPHANNOTEDlg::OnHelpInfo()
-{
-	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	CDialog aboutDlg(IDD_ABOUTBOX);
-	INT_PTR nRet = -1;
-
-	nRet = aboutDlg.DoModal();
-}
 void CSPHANNOTEDlg::OnEnrollLicense()
 {
 	// TODO: 여기에 명령 처리기 코드를 추가합니다.

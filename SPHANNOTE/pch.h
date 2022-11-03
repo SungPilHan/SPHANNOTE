@@ -20,6 +20,7 @@
 #include<cryptopp/files.h>
 #include<cryptopp/osrng.h>
 #include<cryptopp/hex.h>
+#include<cryptopp/base64.h>
 #include<Windows.h>
 #include <psapi.h>
 
