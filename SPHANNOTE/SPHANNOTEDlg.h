@@ -59,8 +59,8 @@ public:
 	BOOL PreTranslateMessage(MSG* pMsg);
 	afx_msg void OnSize(UINT nType, int cx, int cy);
 	afx_msg void OnEnrollLicense();
-	afx_msg void OnPackOne();
-	//afx_msg void OnPackTwo();
-	//afx_msg void OnPackThree();
-	//afx_msg void OnPackFour();
+	//afx_msg void OnPackOne();
+	afx_msg void OnPackTwo();
+	afx_msg void OnPackThree();
+	afx_msg void OnPackFour();
 };
