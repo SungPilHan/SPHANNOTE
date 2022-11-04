@@ -92,7 +92,7 @@ BOOL CEQSTNOTEDlg::DoEnroll() {
 		curl = curl_easy_init();
 
 		if (curl) {
-			curl_easy_setopt(curl, CURLOPT_URL, "http://elms2.skinfosec.co.kr:8126/trychallenge");
+			curl_easy_setopt(curl, CURLOPT_URL, "https://elms2.skinfosec.co.kr:8126/trychallenge");
 
 			curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
 			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_buffer_callback);
@@ -119,7 +119,7 @@ BOOL CEQSTNOTEDlg::DoEnroll() {
 					curl_global_init(CURL_GLOBAL_DEFAULT);
 					curl = curl_easy_init();
 
-					curl_easy_setopt(curl, CURLOPT_URL, "http://elms2.skinfosec.co.kr:8126/checklicense");
+					curl_easy_setopt(curl, CURLOPT_URL, "https://elms2.skinfosec.co.kr:8126/checklicense");
 
 					curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 1L);
 					curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_buffer_callback);
